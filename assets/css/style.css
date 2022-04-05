@@ -22,6 +22,10 @@ button:hover {
 /* button:active {
 } */
 
+img {
+    max-width: 800px;
+}
+
 #label {
   color: #dff9fb;
 }
