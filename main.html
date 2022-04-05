@@ -8,34 +8,70 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap" rel="stylesheet">
-    <!-- Compressed CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.4/dist/css/foundation.min.css"
-        crossorigin="anonymous">
-
-    <!-- Compressed JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.4/dist/js/foundation.min.js"
-        crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="assets/css/style.css" />
+    <!--used bulma for main-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <!-- <link rel="stylesheet" href="assets/css/style.css" /> -->
 </head>
 
 <body>
-    <h1 style="text-align:center" style="margin-top:40px">
+
+    <h1 class="title is-1" style="text-align:center">
         StarParty
     </h1>
-    <div class="row">
 
-            <form class="left grid-x grid-padding-x">
-                    <div class="small-1 cell">
-                        <label for="right-label" class="left shrink">Enter Location</label>
-                    </div>
-                    <div class="small-1 cell">
-                        <input type="text" id="left-label" placeholder="Left-aligned text input">
-                        <button class="submit success button">Search</button>
-                    </div>
+
+
+    <div class="columns">
+
+        <div class="column is-one-quarter">
+            <h3>Location Search</h3>
+            <div class="field has-addons">
+                <div class="control">
+                    <input class="input" type="text" placeholder="Search a location">
                 </div>
-            </form>
+                <div class="control">
+                    <button class="button is-info">
+                        Search
+                    </button>
+                </div>
+            </div>
         </div>
-        
+<!--box area for date details-->
+        <div class="column is-one-quarter">
+            <div class="box" style="background-color: aliceblue">
+                <h3 class="title is-4">Date and Details</h3>
+                <img class="weather-icon">
+                <p>
+                    Description
+                </p>
+                <p>
+                    Visibility
+                </p>
+                <p>
+                    Cloudiness
+                </p>
+                <p>
+                    Sunset and Sunrise
+                </p>
+                <p>
+                    Moon phase <img class="moon-icon">
+                </p>
+                <p>
+                    Visibile Planets
+                </p>
+              </div>
+        </div>
+
+        <div class="column is-offset-2">
+            <h3 class="title is-4">Nasa Astronomy Picture of the Day</h3>
+            <!--image placeholder for picture of the day-->
+            <img class="image" style="background-color: gray; height: 400px; width: 600px;">
+        </div>
+    </div>
+
+    <!--card placement to be added-->
+
     <script src="./assets/script/main.js"></script>
 </body>
+
 </html>
