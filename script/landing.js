@@ -47,6 +47,7 @@ function imageClickHandler(data) {
   
 };
 
+
 function searchBtnHandler() {
 
   var queryString = './main-page.html?q=' + searchInputVal;
