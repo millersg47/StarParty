@@ -1,6 +1,6 @@
 body {
-  background-color: #30336b;
-  color: #dff9fb;
+  background-color: #14213d;
+  color: #ffffff;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -21,6 +21,13 @@ button:hover {
 
 /* button:active {
 } */
+
+.cards {
+    background-color: #fca211;
+    border-radius: 1em;
+    color:#ffffff;
+    font-size: 20px;
+}
 
 img {
     max-width: 800px;
