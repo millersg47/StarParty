@@ -1,4 +1,5 @@
 var key = "&appid=38cb9e992aecb85416eb9cc5841da07c";
+var locationSearch = document.querySelector("#locationSearch");
 
 // Returns longitude and latitude from city input
 function getLatLon(city) {
@@ -11,6 +12,7 @@ function getLatLon(city) {
     .then(function (data) {
       // Assigns city information to an object
       cityInfo = { cityName: city, lat: data[0].lat, lon: data[0].lon };
+      getWeatherData(cityInfo);
     });
 }
 
@@ -23,6 +25,14 @@ function getWeatherData(cityInfo) {
       return response.json();
     })
     .then(function (data) {
-      // Function
+      console.log(data);
     });
 }
+
+// Takes new location from the user's input and sends it to get latitude and longitude
+locationSearch.addEventListener("submit", function (event) {
+  event.preventDefault();
+  var cityInput = document.querySelector("#cityInput");
+  var city = cityInput.value;
+  getLatLon(city);
+});
