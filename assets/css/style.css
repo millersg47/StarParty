@@ -1,5 +1,5 @@
 body {
-  background-color: #14213d;
+  background-image: linear-gradient(#14213d, #000);
   color: #ffffff;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -23,9 +23,11 @@ button:hover {
 } */
 
 .cards {
-    background-color: #fca211;
+    background-image: linear-gradient(#fca211, #fb8500);
+    box-shadow: 4px 6px 16px #6c757d;
+    border: #000 1px solid;
     border-radius: 1em;
-    color:#ffffff;
+    color:#000;
     font-size: 20px;
 }
 

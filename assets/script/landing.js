@@ -58,3 +58,4 @@ function searchBtnHandler() {
 imageEl.addEventListener("click", imageClickHandler);
 //event listener for clicks on search button
 searchBtnEl.addEventListener("click", searchBtnHandler);
+
