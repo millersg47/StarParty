@@ -36,3 +36,26 @@ locationSearch.addEventListener("submit", function (event) {
   var city = cityInput.value;
   getLatLon(city);
 });
+
+//loads Nasa APOD from fetch into image element
+function loadApodImg() {
+  var nasaApiKey = "rjXci6T4vcKLOB8bqde7f6P7zntlo9i8TFoYiiML";
+  var imageEl = document.querySelector(".image");
+  // fetch request gets photo and details for current date's pod
+  var requestUrl = "https://api.nasa.gov/planetary/apod?api_key=" + nasaApiKey;
+
+  fetch(requestUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      //logs the data as an object
+     console.log(data);
+      //declares var for url of pod
+      var imageUrl = data.url;
+      //updates the image src attribute with url for pod
+      imageEl.src = imageUrl;
+    });
+}
+
+loadApodImg();

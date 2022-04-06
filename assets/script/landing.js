@@ -4,13 +4,13 @@ pageLoad();
 //var declared as img element where fetch API will load the APOD on page load event and will be clicked to load modal with image details
 var imageEl = document.querySelector(".image");
 //var declared as the location the user inputs
-var searchInputVal = document.querySelector(".user-location").value;
+var searchInputEl = document.querySelector(".user-location");
 //var declared as the button variable
-var searchEl = document.querySelector(".search-button");
+var searchBtnEl = document.querySelector(".btn");
+//var array declared for all elemnts with image-info tag to house the image data pulled from API upon image click
+var imageInfo = document.querySelectorAll(".image-info");
 
-var searchInputVal = document.querySelector("#search-input").value;
-
-//function to pull the nasa APOD API data to load image
+//function to pull the nasa APOD API data to load image on page load
 function pageLoad() {
   var nasaApiKey = "rjXci6T4vcKLOB8bqde7f6P7zntlo9i8TFoYiiML";
   // fetch request gets photo and details for current date's pod
@@ -22,7 +22,7 @@ function pageLoad() {
     })
     .then(function (data) {
       //logs the data as an object
-      console.log(data);
+     console.log(data);
       //declares var for url of pod
       var imageUrl = data.url;
       //updates the image src attribute with url for pod
@@ -30,29 +30,31 @@ function pageLoad() {
     });
 }
 
+//function to generate image info on image click. Data is not pulling from fetch in pageLoad function. Need to troubleshoot to fix. 
 function imageClickHandler(data) {
+  console.log(data);
   var title = data.title;
   var photographer = data.copyright;
   var description = data.explanation;
+  var imageData = [];
 
-  var imageModal = document.querySelector("modal");
-  var titleEl = document.createElement("h2");
-  var grapherEl = document.createElement("h4");
-  var descEl = document.createElement("p");
+  imageData.push(title, photographer, description);
 
-  titleEl.innerHTML = title;
-  grapherEl.innerHTML = photographer;
-  descEl.innerHTML = description;
-
-  imageModal.append(titleEl, grapherEl, descEl);
+  for (var i = 0; i < imageInfo.length; i++) {
+    imageInfo[i].innerHTML = imageData[i];
+}
 }
 
+//function to capture user input as variable and pass to main-page
 function searchBtnHandler() {
-  var queryString = "./main-page.html?q=" + searchInputVal;
+  event.preventDefault();
+  var searchInputVal = searchInputEl.value;
+  var queryString = "./main.html?q=" + searchInputVal;
 
-  location.assign(queryString);
+  document.location = queryString;
 }
 
 //event listener for clicks on image element
 imageEl.addEventListener("click", imageClickHandler);
-searchEl.addEventListener("click", searchBtnHandler);
+//event listener for clicks on search button
+searchBtnEl.addEventListener("click", searchBtnHandler);
