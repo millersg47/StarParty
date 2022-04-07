@@ -1,5 +1,6 @@
 var key = "&appid=38cb9e992aecb85416eb9cc5841da07c";
 var locationSearch = document.querySelector("#locationSearch");
+var imageEl = document.querySelector(".image");
 
 // Returns longitude and latitude from city input
 function getLatLon(city) {
@@ -40,7 +41,6 @@ locationSearch.addEventListener("submit", function (event) {
 //loads Nasa APOD from fetch into image element
 function loadApodImg() {
   var nasaApiKey = "rjXci6T4vcKLOB8bqde7f6P7zntlo9i8TFoYiiML";
-  var imageEl = document.querySelector(".image");
   // fetch request gets photo and details for current date's pod
   var requestUrl = "https://api.nasa.gov/planetary/apod?api_key=" + nasaApiKey;
 
@@ -58,7 +58,17 @@ function loadApodImg() {
     });
 }
 
+//redirects to Nasa APOD website on image click
+imageEl.addEventListener("click", function (event) {
+  event.preventDefault();
+  imageEl
+  document.location = "https://apod.nasa.gov/apod/astropix.html";
+})
+
+//runs APOD load function
 loadApodImg();
+
+
 
 //saves search history in local storage
 localStorage.setItem("searchedCity", JSON.stringify(searchedCitiesText));
