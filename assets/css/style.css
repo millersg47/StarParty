@@ -15,7 +15,7 @@ p {
 button {
   background-color: #e5e5e5;
   color: #000;
-  box-shadow: 1px 1px 8px 4px #ffffff;
+  box-shadow: 2px 2px 4px #ffffff;
   padding: 8px;
   border:#000 2px solid;
   border-radius: 6px;
@@ -23,9 +23,9 @@ button {
 }
 
 button:hover {
+  box-shadow: 2px 2px 4px #fca211;
   background-color: #fca211;
   color: #000;
-  box-shadow: 2px 2px 8px 4px #fb8500;
 }
 
 .cards {
@@ -49,9 +49,6 @@ button:hover {
   box-shadow: 8px 10px 16px #6c757d;
 }
 
-img {
-  max-width: 800px;
-}
 
 #label {
   color: #dff9fb;
