@@ -1,49 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>StarParty Search</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap"
+      rel="stylesheet"
+    />
     <!-- Compressed CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.4/dist/css/foundation.min.css"
-        crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.4/dist/css/foundation.min.css"
+      crossorigin="anonymous"
+    />
 
     <!-- Compressed JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.4/dist/js/foundation.min.js"
-        crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="./assets/css/style.css"/>
-</head>
+    <script
+      src="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.4/dist/js/foundation.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
 
-<body>
-    <h1 style="text-align:center">
-        StarParty
-    </h1>
-    <div style="display: flex;align-items: center; justify-content: center;">
-        <div>
-            <h3>NASA Astronomy Picture of the Day</h3>
-            <img class="image"/>
-            <div class="modal">
-                <h2 class="image-info"></h2>
-                <h4 class="image-info"></h4>
-                <p class="image-info"></p>
-            </div>
+  <body>
+    <h1 style="text-align: center">StarParty</h1>
+    <div style="display: flex; align-items: center; justify-content: center">
+      <div>
+        <h3>NASA Astronomy Picture of the Day</h3>
+        <img class="image" />
+        <div id="imageModal"></div>
+      </div>
+      <form>
+        <div class="grid-x grid-padding-x">
+          <div class="small-3 cell">
+            <label for="right-label" class="text-right" id="label"
+              >Enter Location</label
+            >
+          </div>
+          <div class="small-9 cell">
+            <input
+              class="user-location"
+              type="text"
+              id="right-label"
+              placeholder="Enter location here"
+            />
+            <button class="btn">Search</button>
+          </div>
         </div>
-        <form>
-            <div class="grid-x grid-padding-x">
-                <div class="small-3 cell">
-                    <label for="right-label" class="text-right" id="label">Enter Location</label>
-                </div>
-                <div class="small-9 cell">
-                    <input class="user-location" type="text" id="right-label" placeholder="Enter location here">
-                    <button class="btn">Search</button>
-                </div>
-            </div>
-        </form>
+      </form>
     </div>
     <script src="./assets/script/landing.js"></script>
-</body>
+  </body>
 </html>
