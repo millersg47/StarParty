@@ -60,3 +60,5 @@ function loadApodImg() {
 
 loadApodImg();
 
+//saves search history in local storage
+localStorage.setItem("searchedCity", JSON.stringify(searchedCitiesText));
