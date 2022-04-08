@@ -31,6 +31,7 @@ function getLatLon(city) {
       cityInfo = { cityName: city, lat: data[0].lat, lon: data[0].lon };
       console.log(cityInfo);
       getWeatherData(cityInfo);
+      getVisPlanets(cityInfo);
      
 
       var existingCity = searchedCity.find(({cityName}) => cityName.toLowerCase() === city.toLowerCase());
@@ -59,6 +60,20 @@ function getWeatherData(cityInfo) {
       console.log(data);
     });
 }
+// Fetches data on visible planets based on location selected by user
+function getVisPlanets(cityInfo) {
+  
+  var requestPlanetsUrl = "https://visible-planets-api.herokuapp.com/v2?latitude=" + cityInfo.lat + "&longitude=" + cityInfo.lon;
+
+  fetch(requestPlanetsUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data)
+    });
+}
+
 
 // Loads date details
 function loadDateDetails(data) {}
