@@ -105,5 +105,3 @@ loadApodImg();
 
 searchBtn.addEventListener("click", getLatLon);
 searchHistCon.addEventListener("click", cityClickHandler);
-
-getParam();
