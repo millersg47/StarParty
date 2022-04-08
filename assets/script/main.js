@@ -6,11 +6,16 @@ var imageEl = document.querySelector(".image");
 var searchBtn = document.querySelector(".button");
 var searchHistCon = document.querySelector(".search-btn-container");
 
+// Date details handles
+var mainDate = document.querySelector("#mainDate");
+
+getParam();
+
 // Get the search param out of the URL
 function getParam() {
   var searchParam = document.location.search.split("&");
   var city = searchParam[0].split("=").pop();
-  // send city to new function
+  getLatLon(city);
 }
 
 // Returns longitude and latitude from city input
@@ -24,6 +29,7 @@ function getLatLon(city) {
     .then(function (data) {
       // Assigns city information to an object
       cityInfo = { cityName: city, lat: data[0].lat, lon: data[0].lon };
+      console.log(cityInfo);
       getWeatherData(cityInfo);
       loadBtn(cityInfo);
 
@@ -42,9 +48,13 @@ function getWeatherData(cityInfo) {
       return response.json();
     })
     .then(function (data) {
+      loadDateDetails(data);
       console.log(data);
     });
 }
+
+// Loads date details
+function loadDateDetails(data) {}
 
 //displays search content in button below search form
 function loadBtn(cityInfo) {
