@@ -96,6 +96,6 @@ imageEl.addEventListener("click", function (event) {
 //runs APOD load function
 loadApodImg();
 
-
 searchBtn.addEventListener("click", getLatLon);
 searchHistCon.addEventListener("click", cityClickHandler);
+
