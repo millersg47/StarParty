@@ -8,7 +8,7 @@ var searchInputEl = document.querySelector(".user-location");
 //var declared as the button variable
 var searchBtnEl = document.querySelector(".btn");
 //var array declared for all elemnts with image-info tag to house the image data pulled from API upon image click
-var imageInfo = document.querySelectorAll(".image-info");
+var imageInfo = document.querySelector("#imageModal");
 
 //function to pull the nasa APOD API data to load image on page load
 function pageLoad() {
@@ -22,31 +22,52 @@ function pageLoad() {
     })
     .then(function (data) {
       //logs the data as an object
-     console.log(data);
+      console.log(data);
       //declares var for url of pod
       var imageUrl = data.url;
       //updates the image src attribute with url for pod
       imageEl.src = imageUrl;
+      //event listener for clicks on image element
+      imageEl.addEventListener("click", function () {
+        imageClickHandler(data);
+      });
     });
 }
 
-//function to generate image info on image click. Data is not pulling from fetch in pageLoad function. Need to troubleshoot to fix. 
+//function to generate image info on image click. Data is not pulling from fetch in pageLoad function. Need to troubleshoot to fix.
 function imageClickHandler(data) {
   console.log(data);
   var title = data.title;
   var photographer = data.copyright;
   var description = data.explanation;
-  var imageData = [];
 
-  imageData.push(title, photographer, description);
+  if (!photographer) {
+    var titleEl = document.createElement("h2");
+    titleEl.textContent = title;
 
-  for (var i = 0; i < imageInfo.length; i++) {
-    imageInfo[i].innerHTML = imageData[i];
-}
+    var descriptionEl = document.createElement("p");
+    descriptionEl.textContent = description;
+
+    imageInfo.appendChild(titleEl);
+    imageInfo.appendChild(descriptionEl);
+  } else {
+    var titleEl = document.createElement("h2");
+    titleEl.textContent = title;
+
+    var photographerEl = document.createElement("h4");
+    photographerEl.textContent = photographer;
+
+    var descriptionEl = document.createElement("p");
+    descriptionEl.textContent = description;
+
+    imageInfo.appendChild(titleEl);
+    imageInfo.appendChild(photographer);
+    imageInfo.appendChild(descriptionEl);
+  }
 }
 
 //function to capture user input as variable and pass to main-page
-function searchBtnHandler() {
+function searchBtnHandler(event) {
   event.preventDefault();
   var searchInputVal = searchInputEl.value;
   var queryString = "./main.html?q=" + searchInputVal;
@@ -54,8 +75,5 @@ function searchBtnHandler() {
   document.location = queryString;
 }
 
-//event listener for clicks on image element
-imageEl.addEventListener("click", imageClickHandler);
 //event listener for clicks on search button
 searchBtnEl.addEventListener("click", searchBtnHandler);
-
