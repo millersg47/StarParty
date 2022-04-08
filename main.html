@@ -4,12 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>StarParty Search</title>
-    <!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap"
-      rel="stylesheet"
-    /> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Kannada:wght@300&display=swap" rel="stylesheet">
     <!--used bulma for main-->
     <link
       rel="stylesheet"
@@ -19,7 +16,7 @@
   </head>
 
   <body>
-    <h1 class="title" style="text-align: center">StarParty</h1>
+    <h1 class="title is-1 has-text-white" style="text-align: center">StarParty</h1>
 
     <div class="columns is-mobile is-centered is-multiline">
       <div class="column is-two-fifths-mobile is-half-tablet is-half-desktop is-one-quarter-widescreen is-narrow-fullhd m-2">
@@ -37,25 +34,25 @@
             <button type="submit" class="button is-info">Search</button>
           </div>
         </form>
+        <div class="search-btn-container"></div>
       </div>
       <!--box area for date details-->
       <div class="column is-four-fifths-mobile is-half-tablet is-half-desktop is-one-quarter-widescreen is-narrow-fullhd m-2">
         <div class="box mainCard" style="background-color: aliceblue">
-          <h3 class="title">Date and Details</h3>
+          <h3 id="mainDate" class="title"></h3>
           <img class="weather-icon" />
-          <p>Description</p>
-          <p>Visibility</p>
-          <p>Cloudiness</p>
-          <p>Sunset and Sunrise</p>
-          <p>Moon phase <img class="moon-icon" /></p>
-          <p>Visibile Planets</p>
+          <p id="mainTemp"></p>
+          <p id="mainSunset"></p>
+          <p id="mainSunrise"></p>
+          <p id="mainMoonPhase"><img class="moon-icon" /></p>
+          <p id="mainPlanets"></p>
         </div>
       </div>
 
       <div class="column is-four-fifths-mobile is-two-fifths-tablet is-two-fifths-desktop is-two=thirds-widescreen is-half-fullhd m-2">
         <!--image placeholder for picture of the day-->
         <img class="image" />
-        <h3 class="title">Nasa Astronomy Picture of the Day</h3>
+        <h3 class="title has-text-white">Nasa Astronomy Picture of the Day</h3>
       </div>
     </div>
 
