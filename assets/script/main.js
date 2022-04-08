@@ -3,7 +3,6 @@ var locationSearch = document.querySelector("#locationSearch");
 var searchedCity = JSON.parse(localStorage.getItem("SearchedCityInfo")) || [];
 console.log(searchedCity);
 var imageEl = document.querySelector(".image");
-var searchBtn = document.querySelector(".button");
 var searchHistCon = document.querySelector(".search-btn-container");
 
 // Date details handles
@@ -16,6 +15,7 @@ function getParam() {
   var searchParam = document.location.search.split("&");
   var city = searchParam[0].split("=").pop();
   getLatLon(city);
+
 }
 
 // Returns longitude and latitude from city input
@@ -31,11 +31,18 @@ function getLatLon(city) {
       cityInfo = { cityName: city, lat: data[0].lat, lon: data[0].lon };
       console.log(cityInfo);
       getWeatherData(cityInfo);
-      loadBtn(cityInfo);
+     
 
-      //attemping to push city info as a new array item into searchCity array. Needs more work - throwing an error "searchedCity.push" is not a function
-      searchedCity.push(cityInfo);
-      localStorage.setItem("searchedCityInfo", JSON.stringify(searchedCity));
+      var existingCity = searchedCity.find(({cityName}) => cityName.toLowerCase() === city.toLowerCase());
+
+      if(!existingCity) {
+        //pushes city info object into searchedCity array storing locally for access in cityClickHandler function
+        searchedCity.unshift(cityInfo);
+        localStorage.setItem("SearchedCityInfo", JSON.stringify(searchedCity));
+        console.log(searchedCity);
+      };
+
+      loadBtn(cityInfo);
     });
 }
 
@@ -58,22 +65,43 @@ function loadDateDetails(data) {}
 
 //displays search content in button below search form
 function loadBtn(cityInfo) {
-  var searchHistBtn = document.createElement("button");
 
-  //creates button to display searched city
-  searchHistBtn.textContent = cityInfo.cityName;
-  searchHistCon.appendChild(searchHistBtn);
+  var existingCity = searchedCity.find(({cityName}) => cityName.toLowerCase() === cityInfo.cityName.toLowerCase());
+
+      if(!existingCity) {
+        //pushes city info object into searchedCity array storing locally for access in cityClickHandler function
+        var searchHistBtn = document.createElement("button");
+        searchHistBtn.textContent = cityInfo.cityName;
+        searchHistCon.prepend(searchHistBtn);
+      };
+
+      if(searchHistCon.children.length >= 8) {
+        searchHistCon.innerHTML = "";
+        loadSearchedCityBtns();
+      }
 }
 
-//city button click handler. Needs more work - not pulling from the city associated with the click, just pulling from the one set of cityInfo in local storage
-function cityClickHandler() {
+//city button click handler pulls cityInfo data from local storage and runs getWeatherData 
+function cityClickHandler(event) {
   var city = event.target.textContent;
-  cityInfo = {
-    cityName: searchedCity.cityName,
-    lat: searchedCity.lat,
-    lon: searchedCity.lon,
-  };
+  cityInfo = searchedCity.find(({cityName}) => cityName === city);
+  console.log(cityInfo);
   getWeatherData(cityInfo);
+}
+
+function loadSearchedCityBtns() {
+
+  for(var i = 0; i < 8; i++) {
+
+    if (i < searchedCity.length) {
+      var searchHistBtn = document.createElement("button");
+      var city = searchedCity[i].cityName;
+      searchHistBtn.textContent = city;
+      searchHistCon.appendChild(searchHistBtn);
+    } else {
+      return
+    };
+}
 }
 
 // Takes new location from the user's input and sends it to get latitude and longitude
@@ -114,5 +142,9 @@ imageEl.addEventListener("click", function (event) {
 //runs APOD load function
 loadApodImg();
 
-searchBtn.addEventListener("click", getLatLon);
+//runs function to load buttons with searched cities' names pulled from local storage
+loadSearchedCityBtns();
+
+//event listener for clicks on any buttons in the searchHistCon div, runs function to load data for that location pulling lat lon from local storage
 searchHistCon.addEventListener("click", cityClickHandler);
+
