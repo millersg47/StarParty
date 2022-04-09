@@ -186,25 +186,6 @@ function loadForecastDetails(data) {
   }
 }
 
-//displays search content in button below search form
-// function loadBtn(cityInfo) {
-//   var existingCity = searchedCity.find(
-//     ({ cityName }) => cityName.toLowerCase() === cityInfo.cityName.toLowerCase()
-//   );
-
-//   if (!existingCity) {
-//     //pushes city info object into searchedCity array storing locally for access in cityClickHandler function
-//     var searchHistBtn = document.createElement("button");
-//     searchHistBtn.textContent = cityInfo.cityName;
-//     searchHistCon.prepend(searchHistBtn);
-//   }
-
-//   if (searchHistCon.children.length >= 8) {
-//     searchHistCon.innerHTML = "";
-//     loadSearchedCityBtns();
-//   }
-// }
-
 //city button click handler pulls cityInfo data from local storage and runs getWeatherData
 function cityClickHandler(event) {
   var city = event.target.textContent;
