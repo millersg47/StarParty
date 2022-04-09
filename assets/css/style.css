@@ -61,7 +61,7 @@ h1 {
 }
 
 @media screen and (min-width: 1408px) {
-  .column.is-2-fullhd {
+  .column.is-2-fullhd.cards {
     width: 14.6667%;
   }
 }
@@ -71,6 +71,15 @@ h1 {
   color: #ffffff;
   border-radius: 1em;
   box-shadow: 0px 0px 10px #ffffff;
+}
+
+#mainPlanets {
+  font-size: 20px;
+}
+.planetIcon {
+  height: 25px;
+  margin-left: 10px;
+  vertical-align: text-top;
 }
 
 .cards:hover {
