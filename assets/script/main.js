@@ -23,7 +23,6 @@ var sunset = document.querySelectorAll(".sunset-content");
 var weatherIcon = document.querySelectorAll(".forecast-icon");
 var desc = document.querySelectorAll(".desc-content");
 
-
 getParam();
 
 // Get the search param out of the URL
@@ -96,60 +95,68 @@ function loadWeatherDetails(data) {
   mainTemp.textContent = `${data.current.temp}\xB0F`;
 
   // moonphase
-    var moon = data.daily[0].moon_phase - 0.03;
-    if (moon === 1 || moon === 0) {
-      mainMoonPhase.textContent = "new moon";
-    } else if (moon > 0 && moon < 0.25) {
-      mainMoonPhase.textContent = "waxing crescent";
-    } else if (moon > 0.25 && moon < 0.5) {
-      mainMoonPhase.textContent = "waxing gibous";
-    } else if (moon > 0.4 && moon < 0.6) {
-      mainMoonPhase.textContent = "full moon";
-    } else if (moon > 0.5 && moon < 0.75) {
-      mainMoonPhase.textContent = "waning gibous";
-    } else if (moon > 0.75 && moon < 1) {
-      mainMoonPhase.textContent = "waning crescent";
-    }
+  var moon = data.daily[0].moon_phase - 0.03;
+  if (moon === 1 || moon === 0) {
+    mainMoonPhase.textContent = "new moon";
+  } else if (moon > 0 && moon < 0.25) {
+    mainMoonPhase.textContent = "waxing crescent";
+  } else if (moon > 0.25 && moon < 0.5) {
+    mainMoonPhase.textContent = "waxing gibous";
+  } else if (moon > 0.4 && moon < 0.6) {
+    mainMoonPhase.textContent = "full moon";
+  } else if (moon > 0.5 && moon < 0.75) {
+    mainMoonPhase.textContent = "waning gibous";
+  } else if (moon > 0.75 && moon < 1) {
+    mainMoonPhase.textContent = "waning crescent";
+  }
   // add unix timestamp function for sunset and sunrise
 }
 
 // Loads visible object details
 function loadPlanetDetails(data) {
   var visibleObjects = data.data;
-  mainPlanets.innerHTML = '';
+  mainPlanets.innerHTML = "";
   for (let i = 0; i < visibleObjects.length; i++) {
     var objectListItem = document.createElement("li");
     objectListItem.textContent = visibleObjects[i].name;
-    if (visibleObjects[i].name == 'Venus') {
-        objectListItem.innerHTML += '<img class="planetIcon" src="https://img.icons8.com/external-prettycons-lineal-color-prettycons/49/000000/external-venus-space-prettycons-lineal-color-prettycons.png"/>'
-    } else if (visibleObjects[i].name == 'Mars') {
-      objectListItem.innerHTML += '<img class="planetIcon" src="https://img.icons8.com/external-tulpahn-flat-tulpahn/64/000000/external-mars-space-tulpahn-flat-tulpahn.png"/>'
-    } else if (visibleObjects[i].name == 'Mercury') {
-      objectListItem.innerHTML += '<img class="planetIcon" src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/000000/external-mercury-astrology-flaticons-lineal-color-flat-icons.png"/>'
-    } else if (visibleObjects[i].name == 'Jupiter') {
-      objectListItem.innerHTML += '<img class="planetIcon" src="https://img.icons8.com/external-wanicon-lineal-color-wanicon/64/000000/external-jupiter-space-wanicon-lineal-color-wanicon.png"/>'
-    } else if (visibleObjects[i].name == 'Uranus') {
-      objectListItem.innerHTML += '<img class="planetIcon" src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/000000/external-uranus-astrology-flaticons-lineal-color-flat-icons.png"/>'
-    } else if (visibleObjects[i].name == 'Neptune') {
-      objectListItem.innerHTML += '<img class="planetIcon" src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/000000/external-neptune-astrology-flaticons-lineal-color-flat-icons.png"/>'
-    } else if (visibleObjects[i].name == 'Saturn') {
-      objectListItem.innerHTML += '<img class="planetIcon" src="https://img.icons8.com/external-justicon-flat-justicon/64/000000/external-saturn-elearning-and-education-justicon-flat-justicon.png"/>' 
+    if (visibleObjects[i].name == "Venus") {
+      objectListItem.innerHTML +=
+        '<img class="planetIcon" src="https://img.icons8.com/external-prettycons-lineal-color-prettycons/49/000000/external-venus-space-prettycons-lineal-color-prettycons.png"/>';
+    } else if (visibleObjects[i].name == "Mars") {
+      objectListItem.innerHTML +=
+        '<img class="planetIcon" src="https://img.icons8.com/external-tulpahn-flat-tulpahn/64/000000/external-mars-space-tulpahn-flat-tulpahn.png"/>';
+    } else if (visibleObjects[i].name == "Mercury") {
+      objectListItem.innerHTML +=
+        '<img class="planetIcon" src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/000000/external-mercury-astrology-flaticons-lineal-color-flat-icons.png"/>';
+    } else if (visibleObjects[i].name == "Jupiter") {
+      objectListItem.innerHTML +=
+        '<img class="planetIcon" src="https://img.icons8.com/external-wanicon-lineal-color-wanicon/64/000000/external-jupiter-space-wanicon-lineal-color-wanicon.png"/>';
+    } else if (visibleObjects[i].name == "Uranus") {
+      objectListItem.innerHTML +=
+        '<img class="planetIcon" src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/000000/external-uranus-astrology-flaticons-lineal-color-flat-icons.png"/>';
+    } else if (visibleObjects[i].name == "Neptune") {
+      objectListItem.innerHTML +=
+        '<img class="planetIcon" src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/000000/external-neptune-astrology-flaticons-lineal-color-flat-icons.png"/>';
+    } else if (visibleObjects[i].name == "Saturn") {
+      objectListItem.innerHTML +=
+        '<img class="planetIcon" src="https://img.icons8.com/external-justicon-flat-justicon/64/000000/external-saturn-elearning-and-education-justicon-flat-justicon.png"/>';
     }
     mainPlanets.appendChild(objectListItem);
-  } 
+  }
 }
 
 //loads five day forecast details into cards
 function loadForecastDetails(data) {
   console.log(data);
-  for (var i=0; i <forecastCardArr.length; i++) {
-    var forecastIconData = data.daily[i+1].weather[0].icon;
-    var today = requestDay(i+1);
+  for (var i = 0; i < forecastCardArr.length; i++) {
+    var forecastIconData = data.daily[i + 1].weather[0].icon;
+    var today = requestDay(i + 1);
 
     forecastDate[i].textContent = today;
-    sunset[i].textContent = data.daily[i+1].sunset;
-    weatherIcon[i].src = "https://openweathermap.org/img/wn/" + forecastIconData + "@2x.png";
-    desc[i].textContent = data.daily[i+1].weather[0].description;
+    sunset[i].textContent = data.daily[i + 1].sunset;
+    weatherIcon[i].src =
+      "https://openweathermap.org/img/wn/" + forecastIconData + "@2x.png";
+    desc[i].textContent = data.daily[i + 1].weather[0].description;
 
     var moon = data.daily[i].moon_phase - 0.03;
     console.log(moon);
@@ -166,11 +173,8 @@ function loadForecastDetails(data) {
     } else if (moon > 0.75 && moon < 1) {
       moonPhase[i].textContent = "waning crescent";
     }
-
   }
 }
-
-
 
 //displays search content in button below search form
 function loadBtn(cityInfo) {
@@ -263,6 +267,30 @@ function requestDay(i) {
 function requestIcon(icon) {
   var url = `https://openweathermap.org/img/wn/${icon}@2x.png`;
   return url;
+}
+
+// Returns time from unix format
+function unixTimeReformat(unixTimestamp) {
+  var d = new Date(unixTimestamp * 1000);
+  var hour;
+  var minutes;
+  var time;
+
+  if (d.getMinutes() < 10) {
+    minutes = `0${d.getMinutes()}`;
+  } else {
+    minutes = d.getMinutes();
+  }
+
+  if (d.getHours() > 12) {
+    hour = d.getHours() - 12;
+    time = `${hour}:${minutes} PM`;
+  } else {
+    hour = d.getHours();
+    time = `${hour}:${minutes} AM`;
+  }
+
+  return time;
 }
 
 //runs APOD load function
