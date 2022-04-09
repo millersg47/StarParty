@@ -13,7 +13,7 @@ getParam();
 // Get the search param out of the URL
 function getParam() {
   var searchParam = document.location.search.split("&");
-  var city = searchParam[0].split("=").pop();
+  var city = searchParam[0].split("=").pop().replace("%20", " ");
   getLatLon(city);
 
 }
