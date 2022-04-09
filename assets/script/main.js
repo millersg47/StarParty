@@ -104,22 +104,38 @@ function loadWeatherDetails(data) {
   mainClouds.textContent = `${data.current.clouds}%`;
   mainTemp.textContent = `${data.current.temp}\xB0F`;
 
-  // moonphase
+  // moonphase for main card
   var moon = data.daily[0].moon_phase - 0.03;
+  addMoonText (moon, mainMoonPhase)
+  // add unix timestamp function for sunset and sunrise
+}
+
+function addMoonText (moon, mainMoonPhase) {
   if (moon === 1 || moon === 0) {
     mainMoonPhase.textContent = "new moon";
+    mainMoonPhase.innerHTML +=
+      '<img class="moonPic" src="https://img.icons8.com/emoji/48/000000/new-moon-emoji.png"/>';
   } else if (moon > 0 && moon < 0.25) {
     mainMoonPhase.textContent = "waxing crescent";
-  } else if (moon > 0.25 && moon < 0.5) {
+    mainMoonPhase.innerHTML +=
+      '<img class="moonPic" src="https://img.icons8.com/emoji/48/000000/waxing-crescent-moon.png"/>';
+  } else if (moon >= 0.25 && moon < 0.5) {
     mainMoonPhase.textContent = "waxing gibous";
+    mainMoonPhase.innerHTML +=
+      '<img class="moonPic" src="https://img.icons8.com/emoji/48/000000/waxing-gibbous-moon.png"/>';
   } else if (moon > 0.4 && moon < 0.6) {
     mainMoonPhase.textContent = "full moon";
+    mainMoonPhase.innerHTML +=
+      '<img class="moonPic" src="https://img.icons8.com/color/48/000000/full-moon.png"/>';
   } else if (moon > 0.5 && moon < 0.75) {
     mainMoonPhase.textContent = "waning gibous";
-  } else if (moon > 0.75 && moon < 1) {
+    mainMoonPhase.innerHTML +=
+      '<img class="moonPic" src="https://img.icons8.com/emoji/48/000000/waning-gibbous-moon.png"/>';
+  } else if (moon >= 0.75 && moon < 1) {
     mainMoonPhase.textContent = "waning crescent";
+    mainMoonPhase.innerHTML +=
+      '<img class="moonPic" src="https://img.icons8.com/emoji/48/000000/waning-crescent-moon.png"/>';
   }
-  // add unix timestamp function for sunset and sunrise
 }
 
 // Loads visible object details
@@ -150,6 +166,9 @@ function loadPlanetDetails(data) {
     } else if (visibleObjects[i].name == "Saturn") {
       objectListItem.innerHTML +=
         '<img class="planetIcon" src="https://img.icons8.com/external-justicon-flat-justicon/64/000000/external-saturn-elearning-and-education-justicon-flat-justicon.png"/>';
+    } else if (visibleObjects[i].name == "Moon") {
+      objectListItem.innerHTML +=
+        '<img class="planetIcon" src="https://img.icons8.com/color/48/000000/full-moon.png"/>';
     }
     mainPlanets.appendChild(objectListItem);
   }
@@ -168,21 +187,10 @@ function loadForecastDetails(data) {
       "https://openweathermap.org/img/wn/" + forecastIconData + "@2x.png";
     desc[i].textContent = data.daily[i + 1].weather[0].description;
 
+//adds the same moon icons to the cards from addMoonText function from above
     var moon = data.daily[i].moon_phase - 0.03;
     console.log(moon);
-    if (moon === 1 || moon === 0) {
-      moonPhase[i].textContent = "new moon";
-    } else if (moon > 0 && moon < 0.25) {
-      moonPhase[i].textContent = "waxing crescent";
-    } else if (moon > 0.25 && moon < 0.5) {
-      moonPhase[i].textContent = "waxing gibous";
-    } else if (moon > 0.4 && moon < 0.6) {
-      moonPhase[i].textContent = "full moon";
-    } else if (moon > 0.5 && moon < 0.75) {
-      moonPhase[i].textContent = "waning gibous";
-    } else if (moon > 0.75 && moon < 1) {
-      moonPhase[i].textContent = "waning crescent";
-    }
+    addMoonText(moon, moonPhase[i]) //calls it here
   }
 }
 
