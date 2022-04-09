@@ -234,11 +234,17 @@ function loadApodImg() {
       return response.json();
     })
     .then(function (data) {
-      //declares var for url of pod
-      var imageUrl = data.url;
-      //updates the image src attribute with url for pod
-      imageEl.src = imageUrl;
-    });
+
+      if(data.media_type === "video") {
+        imageEl.src = " https://apod.nasa.gov/apod/image/2201/CarinaNorth_Colombari_960.jpg";
+      //event listener for clicks on image element
+      } else {
+        //declares var for url of pod
+        var imageUrl = data.url;
+        //updates the image src attribute with url for pod
+        imageEl.src = imageUrl;
+        };
+  });
 }
 
 //redirects to Nasa APOD website on image click
