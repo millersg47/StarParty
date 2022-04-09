@@ -41,6 +41,13 @@ button:hover {
 
 h1 {
   padding-top: 20px;
+
+.p100 {
+  width: 100%;
+}
+
+.search-btn-container button {
+  width: 100%;
 }
 
 .cards {
@@ -50,6 +57,12 @@ h1 {
   border-radius: 1em;
   color:#000;
   font-size: 20px;
+}
+
+@media screen and (min-width: 1408px) {
+  .column.is-2-fullhd {
+    width: 14.6667%;
+  }
 }
 
 .mainCard {
