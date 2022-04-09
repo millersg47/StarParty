@@ -14,6 +14,16 @@ var mainSunrise = document.querySelector("#mainSunrise");
 var mainMoonPhase = document.querySelector("#mainMoonPhase");
 var mainPlanets = document.querySelector("#mainPlanets");
 
+//forecast content variables
+var forecastCardArr = document.querySelectorAll(".cards");
+var forecastDate = document.querySelectorAll(".date-content");
+var moonPhase = document.querySelectorAll(".moon-content");
+console.log(moonPhase);
+var sunset = document.querySelectorAll(".sunset-content");
+var weatherIcon = document.querySelectorAll(".forecast-icon");
+var desc = document.querySelectorAll(".desc-content");
+
+
 getParam();
 
 // Get the search param out of the URL
@@ -34,8 +44,6 @@ function getLatLon(city) {
     .then(function (data) {
       // Assigns city information to an object
       cityInfo = { cityName: city, lat: data[0].lat, lon: data[0].lon };
-      getWeatherData(cityInfo);
-      getVisPlanets(cityInfo);
 
       var existingCity = searchedCity.find(
         ({ cityName }) => cityName.toLowerCase() === city.toLowerCase()
@@ -46,8 +54,9 @@ function getLatLon(city) {
         searchedCity.unshift(cityInfo);
         localStorage.setItem("SearchedCityInfo", JSON.stringify(searchedCity));
       }
-
       loadBtn(cityInfo);
+      getWeatherData(cityInfo);
+      getVisPlanets(cityInfo);
     });
 }
 
@@ -61,6 +70,7 @@ function getWeatherData(cityInfo) {
     })
     .then(function (data) {
       loadWeatherDetails(data);
+      loadForecastDetails(data);
     });
 }
 
@@ -86,21 +96,20 @@ function loadWeatherDetails(data) {
   mainTemp.textContent = `${data.current.temp}\xB0F`;
 
   // moonphase
-  var moon = data.daily[0].moon_phase - 0.03;
-  if (moon === 1 || moon === 0) {
-    mainMoonPhase.textContent = "new moon";
-  } else if (moon > 0 && moon < 0.25) {
-    mainMoonPhase.textContent = "waxing crescent";
-  } else if (moon > 0.25 && moon < 0.5) {
-    mainMoonPhase.textContent = "waxing gibous";
-  } else if (moon > 0.4 && moon < 0.6) {
-    mainMoonPhase.textContent = "full moon";
-  } else if (moon > 0.5 && moon < 0.75) {
-    mainMoonPhase.textContent = "waning gibous";
-  } else if (moon > 0.75 && moon < 1) {
-    mainMoonPhase.textContent = "waning crescent";
-  }
-
+    var moon = data.daily[0].moon_phase - 0.03;
+    if (moon === 1 || moon === 0) {
+      mainMoonPhase.textContent = "new moon";
+    } else if (moon > 0 && moon < 0.25) {
+      mainMoonPhase.textContent = "waxing crescent";
+    } else if (moon > 0.25 && moon < 0.5) {
+      mainMoonPhase.textContent = "waxing gibous";
+    } else if (moon > 0.4 && moon < 0.6) {
+      mainMoonPhase.textContent = "full moon";
+    } else if (moon > 0.5 && moon < 0.75) {
+      mainMoonPhase.textContent = "waning gibous";
+    } else if (moon > 0.75 && moon < 1) {
+      mainMoonPhase.textContent = "waning crescent";
+    }
   // add unix timestamp function for sunset and sunrise
 }
 
@@ -114,6 +123,39 @@ function loadPlanetDetails(data) {
     mainPlanets.appendChild(objectListItem);
   }
 }
+
+//loads five day forecast details into cards
+function loadForecastDetails(data) {
+  console.log(data);
+  for (var i=0; i <forecastCardArr.length; i++) {
+    var forecastIconData = data.daily[i+1].weather[0].icon;
+    var today = requestDay(i+1);
+
+    forecastDate[i].textContent = today;
+    sunset[i].textContent = data.daily[i+1].sunset;
+    weatherIcon[i].src = "https://openweathermap.org/img/wn/" + forecastIconData + "@2x.png";
+    desc[i].textContent = data.daily[i+1].weather[0].description;
+
+    var moon = data.daily[i].moon_phase - 0.03;
+    console.log(moon);
+    if (moon === 1 || moon === 0) {
+      moonPhase[i].textContent = "new moon";
+    } else if (moon > 0 && moon < 0.25) {
+      moonPhase[i].textContent = "waxing crescent";
+    } else if (moon > 0.25 && moon < 0.5) {
+      moonPhase[i].textContent = "waxing gibous";
+    } else if (moon > 0.4 && moon < 0.6) {
+      moonPhase[i].textContent = "full moon";
+    } else if (moon > 0.5 && moon < 0.75) {
+      moonPhase[i].textContent = "waning gibous";
+    } else if (moon > 0.75 && moon < 1) {
+      moonPhase[i].textContent = "waning crescent";
+    }
+
+  }
+}
+
+
 
 //displays search content in button below search form
 function loadBtn(cityInfo) {
