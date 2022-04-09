@@ -52,13 +52,23 @@ function getLatLon(city) {
         //pushes city info object into searchedCity array storing locally for access in cityClickHandler function
         searchedCity.unshift(cityInfo);
         localStorage.setItem("SearchedCityInfo", JSON.stringify(searchedCity));
+        // use DOM to remove all existing buttons
+        // removeButtonsFromDom();
+        removeBtns();
+        // use DOM to replace buttons with new localStorage values
+        loadSearchedCityBtns();
       }
-      loadBtn(cityInfo);
       getWeatherData(cityInfo);
       getVisPlanets(cityInfo);
     });
 }
 
+//removes search history buttons from DOM
+function removeBtns() {
+  while (searchHistCon.lastElementChild) {
+    searchHistCon.removeChild(searchHistCon.lastElementChild);
+  }
+}
 // Returns weather data from latitude and longitude
 function getWeatherData(cityInfo) {
   var url = `https://api.openweathermap.org/data/2.5/onecall?lat=${cityInfo.lat}&lon=${cityInfo.lon}&units=imperial${key}`;
@@ -177,23 +187,23 @@ function loadForecastDetails(data) {
 }
 
 //displays search content in button below search form
-function loadBtn(cityInfo) {
-  var existingCity = searchedCity.find(
-    ({ cityName }) => cityName.toLowerCase() === cityInfo.cityName.toLowerCase()
-  );
+// function loadBtn(cityInfo) {
+//   var existingCity = searchedCity.find(
+//     ({ cityName }) => cityName.toLowerCase() === cityInfo.cityName.toLowerCase()
+//   );
 
-  if (!existingCity) {
-    //pushes city info object into searchedCity array storing locally for access in cityClickHandler function
-    var searchHistBtn = document.createElement("button");
-    searchHistBtn.textContent = cityInfo.cityName;
-    searchHistCon.prepend(searchHistBtn);
-  }
+//   if (!existingCity) {
+//     //pushes city info object into searchedCity array storing locally for access in cityClickHandler function
+//     var searchHistBtn = document.createElement("button");
+//     searchHistBtn.textContent = cityInfo.cityName;
+//     searchHistCon.prepend(searchHistBtn);
+//   }
 
-  if (searchHistCon.children.length >= 8) {
-    searchHistCon.innerHTML = "";
-    loadSearchedCityBtns();
-  }
-}
+//   if (searchHistCon.children.length >= 8) {
+//     searchHistCon.innerHTML = "";
+//     loadSearchedCityBtns();
+//   }
+// }
 
 //city button click handler pulls cityInfo data from local storage and runs getWeatherData
 function cityClickHandler(event) {
@@ -246,7 +256,7 @@ function loadApodImg() {
 imageEl.addEventListener("click", function (event) {
   event.preventDefault();
   imageEl;
-  document.location = "https://apod.nasa.gov/apod/astropix.html";
+  window.open("https://apod.nasa.gov/apod/astropix.html");
 });
 
 // Returns requested day
