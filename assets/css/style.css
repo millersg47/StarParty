@@ -29,6 +29,14 @@ button:hover {
   color: #000;
 }
 
+.p100 {
+  width: 100%;
+}
+
+.search-btn-container button {
+  width: 100%;
+}
+
 .cards {
   background-image: linear-gradient(#fca211, #fb8500);
   box-shadow: 4px 6px 16px #6c757d;
@@ -36,6 +44,12 @@ button:hover {
   border-radius: 1em;
   color:#000;
   font-size: 20px;
+}
+
+@media screen and (min-width: 1408px) {
+  .column.is-2-fullhd {
+    width: 14.6667%;
+  }
 }
 
 .mainCard {
