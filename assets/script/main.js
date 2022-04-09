@@ -45,7 +45,6 @@ function getLatLon(city) {
     .then(function (data) {
       //checks for valid input, if not valid loads modal
       if (!data.length) {
-        console.log("No results found!");
         modalContainer.classList.add("is-active");
         return;
       // if input is valid, city Info is created and the rest of the function runs

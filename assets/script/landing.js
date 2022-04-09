@@ -10,6 +10,9 @@ var searchBtnEl = document.querySelector(".btn");
 //var array declared for all elemnts with image-info tag to house the image data pulled from API upon image click
 var imageInfo = document.querySelector("#imageModal");
 
+var modalContainer = document.querySelector(".modal");
+var modalCloseBtn = document.querySelector(".modal-close");
+
 //function to pull the nasa APOD API data to load image on page load
 function pageLoad() {
   var nasaApiKey = "rjXci6T4vcKLOB8bqde7f6P7zntlo9i8TFoYiiML";
@@ -95,10 +98,30 @@ function imageClickHandler(data) {
 function searchBtnHandler(event) {
   event.preventDefault();
   var searchInputVal = searchInputEl.value;
-  var queryString = "./main.html?q=" + searchInputVal;
+  var key = "&appid=38cb9e992aecb85416eb9cc5841da07c";
+  var url = `https://api.openweathermap.org/geo/1.0/direct?q=${searchInputVal}${key}`;
 
-  document.location = queryString;
+  fetch(url)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      //checks for valid input, if not valid loads modal
+      if (!data.length) {
+        modalContainer.classList.add("is-active");
+        return;
+      // if input is valid, city Info is created and the rest of the function runs
+      } else {
+        var queryString = "./main.html?q=" + searchInputVal;
+        document.location = queryString;
+      }
+    });
 }
+
+//removes modal on click
+modalCloseBtn.addEventListener("click", function() {
+  modalContainer.classList.remove("is-active");
+})
 
 //event listener for clicks on search button
 searchBtnEl.addEventListener("click", searchBtnHandler);
