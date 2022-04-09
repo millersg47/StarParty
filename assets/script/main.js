@@ -6,6 +6,13 @@ var searchHistCon = document.querySelector(".search-btn-container");
 
 // Date details handles
 var mainDate = document.querySelector("#mainDate");
+var mainIcon = document.querySelector("#mainIcon");
+var mainClouds = document.querySelector("#mainClouds");
+var mainTemp = document.querySelector("#mainTemp");
+var mainSunset = document.querySelector("#mainSunset");
+var mainSunrise = document.querySelector("#mainSunrise");
+var mainMoonPhase = document.querySelector("#mainMoonPhase");
+var mainPlanets = document.querySelector("#mainPlanets");
 
 getParam();
 
@@ -56,6 +63,7 @@ function getWeatherData(cityInfo) {
       loadWeatherDetails(data);
     });
 }
+
 // Fetches data on visible planets based on location selected by user
 function getVisPlanets(cityInfo) {
   var requestPlanetsUrl = `https://visible-planets-api.herokuapp.com/v2?latitude=${cityInfo.lat}&longitude=${cityInfo.lon}`;
@@ -69,13 +77,42 @@ function getVisPlanets(cityInfo) {
     });
 }
 
-// Loads main extended details
+// Loads main day details
 function loadWeatherDetails(data) {
   console.log(data);
+  mainDate.textContent = requestDay(0);
+  mainIcon.setAttribute("src", requestIcon(data.current.weather[0].icon));
+  mainClouds.textContent = `${data.current.clouds}%`;
+  mainTemp.textContent = `${data.current.temp}\xB0F`;
+
+  // moonphase
+  var moon = data.daily[0].moon_phase - 0.03;
+  if (moon === 1 || moon === 0) {
+    mainMoonPhase.textContent = "new moon";
+  } else if (moon > 0 && moon < 0.25) {
+    mainMoonPhase.textContent = "waxing crescent";
+  } else if (moon > 0.25 && moon < 0.5) {
+    mainMoonPhase.textContent = "waxing gibous";
+  } else if (moon > 0.4 && moon < 0.6) {
+    mainMoonPhase.textContent = "full moon";
+  } else if (moon > 0.5 && moon < 0.75) {
+    mainMoonPhase.textContent = "waning gibous";
+  } else if (moon > 0.75 && moon < 1) {
+    mainMoonPhase.textContent = "waning crescent";
+  }
+
+  // add unix timestamp function for sunset and sunrise
 }
 
+// Loads visible object details
 function loadPlanetDetails(data) {
-  console.log(data);
+  var visibleObjects = data.data;
+
+  for (let i = 0; i < visibleObjects.length; i++) {
+    var objectListItem = document.createElement("li");
+    objectListItem.textContent = visibleObjects[i].name;
+    mainPlanets.appendChild(objectListItem);
+  }
 }
 
 //displays search content in button below search form
@@ -150,6 +187,26 @@ imageEl.addEventListener("click", function (event) {
   imageEl;
   document.location = "https://apod.nasa.gov/apod/astropix.html";
 });
+
+// Returns requested day
+function requestDay(i) {
+  var today = new Date();
+  var date = new Date();
+  date.setDate(today.getDate() + i);
+
+  var day = date.getDate();
+  var month = date.getMonth() + 1;
+  var year = date.getFullYear();
+  var fullDate = `${month}/${day}/${year}`;
+
+  return fullDate;
+}
+
+// Returns weather icon src
+function requestIcon(icon) {
+  var url = `https://openweathermap.org/img/wn/${icon}@2x.png`;
+  return url;
+}
 
 //runs APOD load function
 loadApodImg();
