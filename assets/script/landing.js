@@ -61,7 +61,7 @@ function imageClickHandler(data) {
     descriptionEl.textContent = description;
 
     imageInfo.appendChild(titleEl);
-    imageInfo.appendChild(photographer);
+    imageInfo.appendChild(photographerEl);
     imageInfo.appendChild(descriptionEl);
   }
 }
