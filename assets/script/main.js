@@ -1,12 +1,18 @@
 var key = "&appid=38cb9e992aecb85416eb9cc5841da07c";
 var locationSearch = document.querySelector("#locationSearch");
 var searchedCity = JSON.parse(localStorage.getItem("SearchedCityInfo")) || [];
-console.log(searchedCity);
 var imageEl = document.querySelector(".image");
 var searchHistCon = document.querySelector(".search-btn-container");
 
 // Date details handles
 var mainDate = document.querySelector("#mainDate");
+var mainIcon = document.querySelector("#mainIcon");
+var mainClouds = document.querySelector("#mainClouds");
+var mainTemp = document.querySelector("#mainTemp");
+var mainSunset = document.querySelector("#mainSunset");
+var mainSunrise = document.querySelector("#mainSunrise");
+var mainMoonPhase = document.querySelector("#mainMoonPhase");
+var mainPlanets = document.querySelector("#mainPlanets");
 
 getParam();
 
@@ -15,7 +21,6 @@ function getParam() {
   var searchParam = document.location.search.split("&");
   var city = searchParam[0].split("=").pop();
   getLatLon(city);
-
 }
 
 // Returns longitude and latitude from city input
@@ -29,19 +34,18 @@ function getLatLon(city) {
     .then(function (data) {
       // Assigns city information to an object
       cityInfo = { cityName: city, lat: data[0].lat, lon: data[0].lon };
-      console.log(cityInfo);
       getWeatherData(cityInfo);
       getVisPlanets(cityInfo);
-     
 
-      var existingCity = searchedCity.find(({cityName}) => cityName.toLowerCase() === city.toLowerCase());
+      var existingCity = searchedCity.find(
+        ({ cityName }) => cityName.toLowerCase() === city.toLowerCase()
+      );
 
-      if(!existingCity) {
+      if (!existingCity) {
         //pushes city info object into searchedCity array storing locally for access in cityClickHandler function
         searchedCity.unshift(cityInfo);
         localStorage.setItem("SearchedCityInfo", JSON.stringify(searchedCity));
-        console.log(searchedCity);
-      };
+      }
 
       loadBtn(cityInfo);
     });
@@ -56,67 +60,99 @@ function getWeatherData(cityInfo) {
       return response.json();
     })
     .then(function (data) {
-      loadDateDetails(data);
-      console.log(data);
+      loadWeatherDetails(data);
     });
 }
+
 // Fetches data on visible planets based on location selected by user
 function getVisPlanets(cityInfo) {
-  
-  var requestPlanetsUrl = "https://visible-planets-api.herokuapp.com/v2?latitude=" + cityInfo.lat + "&longitude=" + cityInfo.lon;
+  var requestPlanetsUrl = `https://visible-planets-api.herokuapp.com/v2?latitude=${cityInfo.lat}&longitude=${cityInfo.lon}`;
 
   fetch(requestPlanetsUrl)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
-      console.log(data)
+      loadPlanetDetails(data);
     });
 }
 
+// Loads main day details
+function loadWeatherDetails(data) {
+  console.log(data);
+  mainDate.textContent = requestDay(0);
+  mainIcon.setAttribute("src", requestIcon(data.current.weather[0].icon));
+  mainClouds.textContent = `${data.current.clouds}%`;
+  mainTemp.textContent = `${data.current.temp}\xB0F`;
 
-// Loads date details
-function loadDateDetails(data) {}
+  // moonphase
+  var moon = data.daily[0].moon_phase - 0.03;
+  if (moon === 1 || moon === 0) {
+    mainMoonPhase.textContent = "new moon";
+  } else if (moon > 0 && moon < 0.25) {
+    mainMoonPhase.textContent = "waxing crescent";
+  } else if (moon > 0.25 && moon < 0.5) {
+    mainMoonPhase.textContent = "waxing gibous";
+  } else if (moon > 0.4 && moon < 0.6) {
+    mainMoonPhase.textContent = "full moon";
+  } else if (moon > 0.5 && moon < 0.75) {
+    mainMoonPhase.textContent = "waning gibous";
+  } else if (moon > 0.75 && moon < 1) {
+    mainMoonPhase.textContent = "waning crescent";
+  }
+
+  // add unix timestamp function for sunset and sunrise
+}
+
+// Loads visible object details
+function loadPlanetDetails(data) {
+  var visibleObjects = data.data;
+
+  for (let i = 0; i < visibleObjects.length; i++) {
+    var objectListItem = document.createElement("li");
+    objectListItem.textContent = visibleObjects[i].name;
+    mainPlanets.appendChild(objectListItem);
+  }
+}
 
 //displays search content in button below search form
 function loadBtn(cityInfo) {
+  var existingCity = searchedCity.find(
+    ({ cityName }) => cityName.toLowerCase() === cityInfo.cityName.toLowerCase()
+  );
 
-  var existingCity = searchedCity.find(({cityName}) => cityName.toLowerCase() === cityInfo.cityName.toLowerCase());
+  if (!existingCity) {
+    //pushes city info object into searchedCity array storing locally for access in cityClickHandler function
+    var searchHistBtn = document.createElement("button");
+    searchHistBtn.textContent = cityInfo.cityName;
+    searchHistCon.prepend(searchHistBtn);
+  }
 
-      if(!existingCity) {
-        //pushes city info object into searchedCity array storing locally for access in cityClickHandler function
-        var searchHistBtn = document.createElement("button");
-        searchHistBtn.textContent = cityInfo.cityName;
-        searchHistCon.prepend(searchHistBtn);
-      };
-
-      if(searchHistCon.children.length >= 8) {
-        searchHistCon.innerHTML = "";
-        loadSearchedCityBtns();
-      }
+  if (searchHistCon.children.length >= 8) {
+    searchHistCon.innerHTML = "";
+    loadSearchedCityBtns();
+  }
 }
 
-//city button click handler pulls cityInfo data from local storage and runs getWeatherData 
+//city button click handler pulls cityInfo data from local storage and runs getWeatherData
 function cityClickHandler(event) {
   var city = event.target.textContent;
-  cityInfo = searchedCity.find(({cityName}) => cityName === city);
+  cityInfo = searchedCity.find(({ cityName }) => cityName === city);
   console.log(cityInfo);
   getWeatherData(cityInfo);
 }
 
 function loadSearchedCityBtns() {
-
-  for(var i = 0; i < 8; i++) {
-
+  for (var i = 0; i < 8; i++) {
     if (i < searchedCity.length) {
       var searchHistBtn = document.createElement("button");
       var city = searchedCity[i].cityName;
       searchHistBtn.textContent = city;
       searchHistCon.appendChild(searchHistBtn);
     } else {
-      return
-    };
-}
+      return;
+    }
+  }
 }
 
 // Takes new location from the user's input and sends it to get latitude and longitude
@@ -138,8 +174,6 @@ function loadApodImg() {
       return response.json();
     })
     .then(function (data) {
-      //logs the data as an object
-      console.log(data);
       //declares var for url of pod
       var imageUrl = data.url;
       //updates the image src attribute with url for pod
@@ -154,6 +188,26 @@ imageEl.addEventListener("click", function (event) {
   document.location = "https://apod.nasa.gov/apod/astropix.html";
 });
 
+// Returns requested day
+function requestDay(i) {
+  var today = new Date();
+  var date = new Date();
+  date.setDate(today.getDate() + i);
+
+  var day = date.getDate();
+  var month = date.getMonth() + 1;
+  var year = date.getFullYear();
+  var fullDate = `${month}/${day}/${year}`;
+
+  return fullDate;
+}
+
+// Returns weather icon src
+function requestIcon(icon) {
+  var url = `https://openweathermap.org/img/wn/${icon}@2x.png`;
+  return url;
+}
+
 //runs APOD load function
 loadApodImg();
 
@@ -162,4 +216,3 @@ loadSearchedCityBtns();
 
 //event listener for clicks on any buttons in the searchHistCon div, runs function to load data for that location pulling lat lon from local storage
 searchHistCon.addEventListener("click", cityClickHandler);
-
