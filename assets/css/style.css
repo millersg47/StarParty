@@ -69,6 +69,15 @@ h1 {
   box-shadow: 0px 0px 10px #ffffff;
 }
 
+#mainPlanets {
+  font-size: 20px;
+}
+.planetIcon {
+  height: 25px;
+  margin-left: 10px;
+  vertical-align: text-top;
+}
+
 .cards:hover {
   background-image: linear-gradient(#fb8500, #fca211);
   box-shadow: 8px 10px 16px #6c757d;
