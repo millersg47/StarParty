@@ -78,6 +78,11 @@ h1 {
   margin-left: 10px;
   vertical-align: text-top;
 }
+.moonPic {
+  height: 29px;
+  vertical-align: sub;
+  margin-left: 4px;
+}
 
 .cards:hover {
   background-image: linear-gradient(#fb8500, #fca211);
