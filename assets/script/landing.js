@@ -34,9 +34,9 @@ function pageLoad() {
     });
 }
 
-//function to generate image info on image click. Data is not pulling from fetch in pageLoad function. Need to troubleshoot to fix.
+//function to generate image info on image click.
 function imageClickHandler(data) {
-  console.log(data);
+  imageInfo.innerHTML = "";
   var title = data.title;
   var photographer = data.copyright;
   var description = data.explanation;
