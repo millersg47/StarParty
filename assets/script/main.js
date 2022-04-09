@@ -116,7 +116,7 @@ function loadWeatherDetails(data) {
 // Loads visible object details
 function loadPlanetDetails(data) {
   var visibleObjects = data.data;
-
+  mainPlanets.innerHTML = '';
   for (let i = 0; i < visibleObjects.length; i++) {
     var objectListItem = document.createElement("li");
     objectListItem.textContent = visibleObjects[i].name;
