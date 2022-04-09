@@ -242,7 +242,7 @@ function loadApodImg() {
 imageEl.addEventListener("click", function (event) {
   event.preventDefault();
   imageEl;
-  document.location = "https://apod.nasa.gov/apod/astropix.html";
+  window.open("https://apod.nasa.gov/apod/astropix.html");
 });
 
 // Returns requested day
