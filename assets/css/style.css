@@ -92,3 +92,16 @@ h1 {
 border-radius: 6px;
 font-size: 24px;
 }
+
+#imageModal p {
+  font-size: 16px;
+}
+
+#imageModal h2 {
+  font-size: 28px;
+}
+
+#imageModal h4 {
+  font-size: 24px;
+  color: aqua;
+}
