@@ -38,6 +38,12 @@ button:hover {
   font-size: 20px;
 }
 
+@media screen and (min-width: 1408px) {
+  .column.is-2-fullhd {
+    width: 14.6667%;
+  }
+}
+
 .mainCard {
   background-image: linear-gradient(#e5e5e5, #000);
   color: #ffffff;
