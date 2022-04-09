@@ -25,7 +25,7 @@
 
     <div class="columns is-mobile is-centered is-multiline">
       <div
-        class="column is-two-fifths-mobile is-half-tablet is-half-desktop is-one-quarter-widescreen is-narrow-fullhd m-2"
+        class="column is-two-fifths-mobile is-half-tablet is-half-desktop is-one-quarter-widescreen is-narrow-fullhd m-2 is-clipped"
       >
         <h3>Location Search</h3>
         <form id="locationSearch" class="field has-addons">
@@ -42,6 +42,11 @@
           </div>
         </form>
         <div class="search-btn-container"></div>
+        <div class="modal">
+          <div class="modal-background"></div>
+          <div class="modal-content">No results found. Try another city!</div>
+          <button class="modal-close is-large" aria-label="close"></button>
+        </div>
       </div>
       <!--box area for date details-->
       <div

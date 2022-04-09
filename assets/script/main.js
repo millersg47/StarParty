@@ -3,6 +3,8 @@ var locationSearch = document.querySelector("#locationSearch");
 var searchedCity = JSON.parse(localStorage.getItem("SearchedCityInfo")) || [];
 var imageEl = document.querySelector(".image");
 var searchHistCon = document.querySelector(".search-btn-container");
+var modalContainer = document.querySelector(".modal");
+var modalCloseBtn = document.querySelector(".modal-close");
 
 // Date details handles
 var mainDate = document.querySelector("#mainDate");
@@ -41,27 +43,41 @@ function getLatLon(city) {
       return response.json();
     })
     .then(function (data) {
-      // Assigns city information to an object
-      cityInfo = { cityName: city, lat: data[0].lat, lon: data[0].lon };
+      //checks for valid input, if not valid loads modal
+      if (!data.length) {
+        console.log("No results found!");
+        modalContainer.classList.add("is-active");
+        return;
+      // if input is valid, city Info is created and the rest of the function runs
+      } else {
+        // Assigns city information to an object
+        cityInfo = { cityName: city, lat: data[0].lat, lon: data[0].lon };
 
-      var existingCity = searchedCity.find(
-        ({ cityName }) => cityName.toLowerCase() === city.toLowerCase()
-      );
+        var existingCity = searchedCity.find(
+          ({ cityName }) => cityName.toLowerCase() === city.toLowerCase()
+        );
 
-      if (!existingCity) {
-        //pushes city info object into searchedCity array storing locally for access in cityClickHandler function
-        searchedCity.unshift(cityInfo);
-        localStorage.setItem("SearchedCityInfo", JSON.stringify(searchedCity));
-        // use DOM to remove all existing buttons
-        // removeButtonsFromDom();
-        removeBtns();
-        // use DOM to replace buttons with new localStorage values
-        loadSearchedCityBtns();
-      }
-      getWeatherData(cityInfo);
-      getVisPlanets(cityInfo);
-    });
+        if (!existingCity) {
+          //pushes city info object into searchedCity array storing locally for access in cityClickHandler function
+          searchedCity.unshift(cityInfo);
+          localStorage.setItem("SearchedCityInfo", JSON.stringify(searchedCity));
+          // use DOM to remove all existing buttons
+          // removeButtonsFromDom();
+          removeBtns();
+          // use DOM to replace buttons with new localStorage values
+          loadSearchedCityBtns();
+        }
+        getWeatherData(cityInfo);
+        getVisPlanets(cityInfo);
+      };
+  });
 }
+
+//removes modal on click
+modalCloseBtn.addEventListener("click", function() {
+  modalContainer.classList.remove("is-active");
+})
+
 
 //removes search history buttons from DOM
 function removeBtns() {
