@@ -111,8 +111,23 @@ function loadPlanetDetails(data) {
   for (let i = 0; i < visibleObjects.length; i++) {
     var objectListItem = document.createElement("li");
     objectListItem.textContent = visibleObjects[i].name;
+    if (visibleObjects[i].name == 'Venus') {
+        objectListItem.innerHTML += '<img class="planetIcon" src="https://img.icons8.com/external-prettycons-lineal-color-prettycons/49/000000/external-venus-space-prettycons-lineal-color-prettycons.png"/>'
+    } else if (visibleObjects[i].name == 'Mars') {
+      objectListItem.innerHTML += '<img class="planetIcon" src="https://img.icons8.com/external-tulpahn-flat-tulpahn/64/000000/external-mars-space-tulpahn-flat-tulpahn.png"/>'
+    } else if (visibleObjects[i].name == 'Mercury') {
+      objectListItem.innerHTML += '<img class="planetIcon" src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/000000/external-mercury-astrology-flaticons-lineal-color-flat-icons.png"/>'
+    } else if (visibleObjects[i].name == 'Jupiter') {
+      objectListItem.innerHTML += '<img class="planetIcon" src="https://img.icons8.com/external-wanicon-lineal-color-wanicon/64/000000/external-jupiter-space-wanicon-lineal-color-wanicon.png"/>'
+    } else if (visibleObjects[i].name == 'Uranus') {
+      objectListItem.innerHTML += '<img class="planetIcon" src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/000000/external-uranus-astrology-flaticons-lineal-color-flat-icons.png"/>'
+    } else if (visibleObjects[i].name == 'Neptune') {
+      objectListItem.innerHTML += '<img class="planetIcon" src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/000000/external-neptune-astrology-flaticons-lineal-color-flat-icons.png"/>'
+    } else if (visibleObjects[i].name == 'Saturn') {
+      objectListItem.innerHTML += '<img class="planetIcon" src="https://img.icons8.com/external-justicon-flat-justicon/64/000000/external-saturn-elearning-and-education-justicon-flat-justicon.png"/>' 
+    }
     mainPlanets.appendChild(objectListItem);
-  }
+  } 
 }
 
 //displays search content in button below search form
