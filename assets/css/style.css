@@ -7,6 +7,7 @@ body {
   min-height: 100vh;
   color: #ffffff;
   font-family: "Anek Kannada", sans-serif;
+  cursor: pointer;
 }
 
 p {
@@ -34,10 +35,27 @@ button:hover {
   box-shadow: 2px 2px 6px #fca211;
   background-color: #fca211;
   color: #000;
+  cursor: grab;
+}
+
+button:active {
+  cursor: grabbing;
 }
 
 h1 {
   padding-top: 20px;
+}
+
+.image {
+  cursor: grab;
+}
+
+.image:hover {
+  border: 1px snow solid;
+}
+
+.image:active {
+  cursor: grabbing;
 }
 
 .p100 {
