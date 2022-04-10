@@ -1,4 +1,4 @@
-# Project-1
+# StarParty
 
 This application delivers the weather forecast and various astronomy information to a user based on their selected city input.
 
