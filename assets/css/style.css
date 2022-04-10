@@ -46,6 +46,10 @@ h1 {
   padding-top: 20px;
 }
 
+.title-extended {
+  color: white;
+}
+
 .image {
   cursor: grab;
 }
@@ -67,8 +71,12 @@ h1 {
 }
 
 .cardContainer p {
- font-size: 24px;
- font-weight: bolder;
+  font-size: 24px;
+  font-weight: bolder;
+}
+
+.inputContainer {
+  margin: 4px 16px;
 }
 
 .sunset {
@@ -144,6 +152,7 @@ h1 {
 #right-label {
   border-radius: 6px;
   font-size: 24px;
+  width: 100%;
 }
 
 #imageModal p {
@@ -158,4 +167,3 @@ h1 {
   font-size: 24px;
   color: aqua;
 }
-

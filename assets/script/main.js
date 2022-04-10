@@ -219,6 +219,7 @@ function cityClickHandler(event) {
   var city = event.target.textContent;
   cityInfo = searchedCity.find(({ cityName }) => cityName === city);
   getWeatherData(cityInfo);
+  getVisPlanets(cityInfo);
 }
 
 function loadSearchedCityBtns() {

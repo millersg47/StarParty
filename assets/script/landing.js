@@ -26,9 +26,10 @@ function pageLoad() {
     .then(function (data) {
       console.log(data);
 
-      if(data.media_type === "video") {
-        imageEl.src = " https://apod.nasa.gov/apod/image/2201/CarinaNorth_Colombari_960.jpg";
-      //event listener for clicks on image element
+      if (data.media_type === "video") {
+        imageEl.src =
+          " https://apod.nasa.gov/apod/image/2201/CarinaNorth_Colombari_960.jpg";
+        //event listener for clicks on image element
         imageEl.addEventListener("click", function () {
           imageAltClickHandler(data);
         });
@@ -41,25 +42,26 @@ function pageLoad() {
         imageEl.addEventListener("click", function () {
           imageClickHandler(data);
         });
-    };
-  });
+      }
+    });
 }
 
 //function to load video replacement image data below image
 function imageAltClickHandler(data) {
   imageInfo.innerHTML = "";
-    var titleEl = document.createElement("h2");
-    titleEl.textContent = "Carina Nebula North";
+  var titleEl = document.createElement("h2");
+  titleEl.textContent = "Carina Nebula North";
 
-    var photographerEl = document.createElement("h4");
-    photographerEl.textContent = "Roberto Colombari";
+  var photographerEl = document.createElement("h4");
+  photographerEl.textContent = "Roberto Colombari";
 
-    var descriptionEl = document.createElement("p");
-    descriptionEl.textContent = "The Great Carina Nebula is home to strange stars and iconic nebulas. Named for its home constellation, the huge star-forming region is larger and brighter than the Great Orion Nebula but less well known because it is so far south -- and because so much of humanity lives so far north. The featured image shows in great detail the northern-most part of the Carina Nebula. Visible nebulas include the semi-circular filaments surrounding the active star Wolf-Rayet 23 (WR23) on the far left. Just left of center is the Gabriela Mistral Nebula consisting of an emission nebula of glowing gas (IC 2599) surrounding the small open cluster of stars (NGC 3324). Above the image center is the larger star cluster NGC 3293, while to its right is the relatively faint emission nebula designated Loden 153. The most famous occupant of the Carina Nebula, however, is not shown. Off the image to the lower right is the bright, erratic, and doomed star star known as Eta Carinae -- a star once one of the brightest stars in the sky and now predicted to explode in a supernova sometime in the next few million years.";
+  var descriptionEl = document.createElement("p");
+  descriptionEl.textContent =
+    "The Great Carina Nebula is home to strange stars and iconic nebulas. Named for its home constellation, the huge star-forming region is larger and brighter than the Great Orion Nebula but less well known because it is so far south -- and because so much of humanity lives so far north. The featured image shows in great detail the northern-most part of the Carina Nebula. Visible nebulas include the semi-circular filaments surrounding the active star Wolf-Rayet 23 (WR23) on the far left. Just left of center is the Gabriela Mistral Nebula consisting of an emission nebula of glowing gas (IC 2599) surrounding the small open cluster of stars (NGC 3324). Above the image center is the larger star cluster NGC 3293, while to its right is the relatively faint emission nebula designated Loden 153. The most famous occupant of the Carina Nebula, however, is not shown. Off the image to the lower right is the bright, erratic, and doomed star star known as Eta Carinae -- a star once one of the brightest stars in the sky and now predicted to explode in a supernova sometime in the next few million years.";
 
-    imageInfo.appendChild(titleEl);
-    imageInfo.appendChild(photographerEl);
-    imageInfo.appendChild(descriptionEl);
+  imageInfo.appendChild(titleEl);
+  imageInfo.appendChild(photographerEl);
+  imageInfo.appendChild(descriptionEl);
 }
 
 //function to generate image info on image click.
@@ -110,7 +112,7 @@ function searchBtnHandler(event) {
       if (!data.length) {
         modalContainer.classList.add("is-active");
         return;
-      // if input is valid, city Info is created and the rest of the function runs
+        // if input is valid, city Info is created and the rest of the function runs
       } else {
         var queryString = "./main.html?q=" + searchInputVal;
         document.location = queryString;
@@ -119,9 +121,9 @@ function searchBtnHandler(event) {
 }
 
 //removes modal on click
-modalCloseBtn.addEventListener("click", function() {
+modalCloseBtn.addEventListener("click", function () {
   modalContainer.classList.remove("is-active");
-})
+});
 
 //event listener for clicks on search button
 searchBtnEl.addEventListener("click", searchBtnHandler);
