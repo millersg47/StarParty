@@ -9,6 +9,7 @@ var modalCloseBtn = document.querySelector(".modal-close");
 // Date details handles
 var mainDate = document.querySelector("#mainDate");
 var mainIcon = document.querySelector("#mainIcon");
+var mainDesc = document.querySelector("#mainDesc");
 var mainClouds = document.querySelector("#mainClouds");
 var mainTemp = document.querySelector("#mainTemp");
 var mainSunset = document.querySelector("#mainSunset");
@@ -20,7 +21,6 @@ var mainPlanets = document.querySelector("#mainPlanets");
 var forecastCardArr = document.querySelectorAll(".cards");
 var forecastDate = document.querySelectorAll(".date-content");
 var moonPhase = document.querySelectorAll(".moon-content");
-console.log(moonPhase);
 var sunset = document.querySelectorAll(".sunset-content");
 var weatherIcon = document.querySelectorAll(".forecast-icon");
 var desc = document.querySelectorAll(".desc-content");
@@ -47,7 +47,7 @@ function getLatLon(city) {
       if (!data.length) {
         modalContainer.classList.add("is-active");
         return;
-      // if input is valid, city Info is created and the rest of the function runs
+        // if input is valid, city Info is created and the rest of the function runs
       } else {
         // Assigns city information to an object
         cityInfo = { cityName: city, lat: data[0].lat, lon: data[0].lon };
@@ -59,24 +59,25 @@ function getLatLon(city) {
         if (!existingCity) {
           //pushes city info object into searchedCity array storing locally for access in cityClickHandler function
           searchedCity.unshift(cityInfo);
-          localStorage.setItem("SearchedCityInfo", JSON.stringify(searchedCity));
+          localStorage.setItem(
+            "SearchedCityInfo",
+            JSON.stringify(searchedCity)
+          );
           // use DOM to remove all existing buttons
-          // removeButtonsFromDom();
           removeBtns();
           // use DOM to replace buttons with new localStorage values
           loadSearchedCityBtns();
         }
         getWeatherData(cityInfo);
         getVisPlanets(cityInfo);
-      };
-  });
+      }
+    });
 }
 
 //removes modal on click
-modalCloseBtn.addEventListener("click", function() {
+modalCloseBtn.addEventListener("click", function () {
   modalContainer.classList.remove("is-active");
-})
-
+});
 
 //removes search history buttons from DOM
 function removeBtns() {
@@ -93,7 +94,7 @@ function getWeatherData(cityInfo) {
       return response.json();
     })
     .then(function (data) {
-      loadWeatherDetails(data);
+      loadWeatherDetails(data, cityInfo.cityName);
       loadForecastDetails(data);
     });
 }
@@ -112,20 +113,23 @@ function getVisPlanets(cityInfo) {
 }
 
 // Loads main day details
-function loadWeatherDetails(data) {
-  console.log(data);
-  mainDate.textContent = requestDay(0);
+function loadWeatherDetails(data, city) {
+  mainDate.textContent = `${city} ${requestDay(0)}`;
   mainIcon.setAttribute("src", requestIcon(data.current.weather[0].icon));
+  mainDesc.textContent = data.current.weather[0].description;
   mainClouds.textContent = `${data.current.clouds}%`;
   mainTemp.textContent = `${data.current.temp}\xB0F`;
 
   // moonphase for main card
   var moon = data.daily[0].moon_phase - 0.03;
-  addMoonText (moon, mainMoonPhase)
-  // add unix timestamp function for sunset and sunrise
+  addMoonText(moon, mainMoonPhase);
+
+  // returns readable time from unix timestamp
+  mainSunset.textContent = unixTimeReformat(data.current.sunset, data.timezone);
 }
 
-function addMoonText (moon, mainMoonPhase) {
+// Adds moon icon
+function addMoonText(moon, mainMoonPhase) {
   if (moon === 1 || moon === 0) {
     mainMoonPhase.textContent = "new moon";
     mainMoonPhase.innerHTML +=
@@ -191,21 +195,22 @@ function loadPlanetDetails(data) {
 
 //loads five day forecast details into cards
 function loadForecastDetails(data) {
-  console.log(data);
   for (var i = 0; i < forecastCardArr.length; i++) {
     var forecastIconData = data.daily[i + 1].weather[0].icon;
     var today = requestDay(i + 1);
 
     forecastDate[i].textContent = today;
-    sunset[i].textContent = data.daily[i + 1].sunset;
+    sunset[i].textContent = unixTimeReformat(
+      data.daily[i + 1].sunset,
+      data.timezone
+    );
     weatherIcon[i].src =
       "https://openweathermap.org/img/wn/" + forecastIconData + "@2x.png";
     desc[i].textContent = data.daily[i + 1].weather[0].description;
 
-//adds the same moon icons to the cards from addMoonText function from above
+    //adds the same moon icons to the cards from addMoonText function from above
     var moon = data.daily[i].moon_phase - 0.03;
-    console.log(moon);
-    addMoonText(moon, moonPhase[i]) //calls it here
+    addMoonText(moon, moonPhase[i]); //calls it here
   }
 }
 
@@ -213,7 +218,6 @@ function loadForecastDetails(data) {
 function cityClickHandler(event) {
   var city = event.target.textContent;
   cityInfo = searchedCity.find(({ cityName }) => cityName === city);
-  console.log(cityInfo);
   getWeatherData(cityInfo);
 }
 
@@ -249,17 +253,17 @@ function loadApodImg() {
       return response.json();
     })
     .then(function (data) {
-
-      if(data.media_type === "video") {
-        imageEl.src = " https://apod.nasa.gov/apod/image/2201/CarinaNorth_Colombari_960.jpg";
-      //event listener for clicks on image element
+      if (data.media_type === "video") {
+        imageEl.src =
+          " https://apod.nasa.gov/apod/image/2201/CarinaNorth_Colombari_960.jpg";
+        //event listener for clicks on image element
       } else {
         //declares var for url of pod
         var imageUrl = data.url;
         //updates the image src attribute with url for pod
         imageEl.src = imageUrl;
-        };
-  });
+      }
+    });
 }
 
 //redirects to Nasa APOD website on image click
@@ -290,25 +294,11 @@ function requestIcon(icon) {
 }
 
 // Returns time from unix format
-function unixTimeReformat(unixTimestamp) {
-  var d = new Date(unixTimestamp * 1000);
-  var hour;
-  var minutes;
-  var time;
-
-  if (d.getMinutes() < 10) {
-    minutes = `0${d.getMinutes()}`;
-  } else {
-    minutes = d.getMinutes();
-  }
-
-  if (d.getHours() > 12) {
-    hour = d.getHours() - 12;
-    time = `${hour}:${minutes} PM`;
-  } else {
-    hour = d.getHours();
-    time = `${hour}:${minutes} AM`;
-  }
+function unixTimeReformat(unixTimestamp, cityTimezone) {
+  var time = new Date(unixTimestamp * 1000).toLocaleTimeString("en", {
+    timeZoneName: "short",
+    timeZone: cityTimezone,
+  });
 
   return time;
 }
