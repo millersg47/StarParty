@@ -27,6 +27,7 @@ button {
   font-size: 18px;
   display: block;
   width: 100%;
+  margin-bottom: 8px;
 }
 
 button:hover {
@@ -47,13 +48,41 @@ h1 {
   width: 100%;
 }
 
+.cardContainer p {
+ font-size: 24px;
+ font-weight: bolder;
+}
+
+.sunset {
+  color: crimson;
+}
+
+.description {
+  color: darkmagenta;
+}
+
+.date span.date-content {
+  color: saddlebrown;
+  font-size: 28px;
+}
+
 .cards {
   background-image: linear-gradient(#fca211, #fb8500);
   box-shadow: 4px 6px 16px #6c757d;
   border: #000 1px solid;
   border-radius: 1em;
   color: #000;
-  font-size: 20px;
+  text-align: center;
+}
+
+.cards span {
+  font-size: 18px;
+  font-weight: bold;
+  color: snow;
+}
+
+.currentDay {
+  text-align: center;
 }
 
 @media screen and (min-width: 1408px) {
