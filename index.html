@@ -18,36 +18,33 @@
   </head>
 
   <body>
-    <h1 class="title is-1" style="text-align: center; color: white">
+    <!-- Title -->
+    <h1 class="title title-extended is-flex is-justify-content-center is-1">
       StarParty
     </h1>
 
-    <div class="columns mb-0 is-vcentered">
-      <div class="column m-4">
-        <div
-          style="display: flex; align-items: center; justify-content: center"
-        >
-          <div>
-            <h3 class="title is-4" style="color: white">
-              NASA Astronomy Picture of the Day
-            </h3>
-            <img class="image" />
-            <div class="column is-two-thirds" id="imageModal"></div>
+    <!-- Main content -->
+    <main class="columns mb-0 is-vcentered">
+      <!-- Astronomy picture of the day -->
+      <div class="column m-4 is-flex is-justify-content-center">
+        <div class="imageContainer column is-four-fifths">
+          <div class="title mb-1 title-extended">
+            <h3>NASA Astronomy Picture of the Day</h3>
           </div>
+          <img class="image" />
+          <div id="imageModal"></div>
         </div>
       </div>
-      <div
-        class="column is-one-quarter m-4"
-        style="display: flex; align-items: center"
-      >
-        <form>
-          <br />
+
+      <!-- Submit location form -->
+      <div class="column is-flex is-align-content-center is-one-third">
+        <form class="inputContainer">
           <div>
-            <label for="right-label" class="text-right" id="label"
-              >Enter Location</label
-            >
-          </div>
-          <div>
+            <div>
+              <label for="right-label" class="text-right" id="label"
+                >Enter Location</label
+              >
+            </div>
             <input
               class="user-location"
               type="text"
@@ -57,8 +54,15 @@
             <button class="btn">Search</button>
           </div>
         </form>
+
+        <!-- Modal for bad location submit -->
+        <div class="modal">
+          <div class="modal-background"></div>
+          <div class="modal-content">No results found. Try another city!</div>
+          <button class="modal-close is-large" aria-label="close"></button>
+        </div>
       </div>
-    </div>
+    </main>
     <script src="./assets/script/landing.js"></script>
   </body>
 </html>

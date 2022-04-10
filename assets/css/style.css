@@ -7,6 +7,7 @@ body {
   min-height: 100vh;
   color: #ffffff;
   font-family: "Anek Kannada", sans-serif;
+  cursor: pointer;
 }
 
 p {
@@ -27,16 +28,38 @@ button {
   font-size: 18px;
   display: block;
   width: 100%;
+  margin-bottom: 8px;
 }
 
 button:hover {
   box-shadow: 2px 2px 6px #fca211;
   background-color: #fca211;
   color: #000;
+  cursor: grab;
+}
+
+button:active {
+  cursor: grabbing;
 }
 
 h1 {
   padding-top: 20px;
+}
+
+.title-extended {
+  color: white;
+}
+
+.image {
+  cursor: grab;
+}
+
+.image:hover {
+  border: 1px snow solid;
+}
+
+.image:active {
+  cursor: grabbing;
 }
 
 .p100 {
@@ -47,13 +70,45 @@ h1 {
   width: 100%;
 }
 
+.cardContainer p {
+  font-size: 24px;
+  font-weight: bolder;
+}
+
+.inputContainer {
+  margin: 4px 16px;
+}
+
+.sunset {
+  color: crimson;
+}
+
+.description {
+  color: darkmagenta;
+}
+
+.date span.date-content {
+  color: saddlebrown;
+  font-size: 28px;
+}
+
 .cards {
   background-image: linear-gradient(#fca211, #fb8500);
   box-shadow: 4px 6px 16px #6c757d;
   border: #000 1px solid;
   border-radius: 1em;
   color: #000;
-  font-size: 20px;
+  text-align: center;
+}
+
+.cards span {
+  font-size: 18px;
+  font-weight: bold;
+  color: snow;
+}
+
+.currentDay {
+  text-align: center;
 }
 
 @media screen and (min-width: 1408px) {
@@ -78,6 +133,11 @@ h1 {
   margin-left: 10px;
   vertical-align: text-top;
 }
+.moonPic {
+  height: 29px;
+  vertical-align: sub;
+  margin-left: 4px;
+}
 
 .cards:hover {
   background-image: linear-gradient(#fb8500, #fca211);
@@ -92,6 +152,7 @@ h1 {
 #right-label {
   border-radius: 6px;
   font-size: 24px;
+  width: 100%;
 }
 
 #imageModal p {
