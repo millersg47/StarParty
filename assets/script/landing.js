@@ -24,8 +24,6 @@ function pageLoad() {
       return response.json();
     })
     .then(function (data) {
-      console.log(data);
-
       if (data.media_type === "video") {
         imageEl.src =
           " https://apod.nasa.gov/apod/image/2201/CarinaNorth_Colombari_960.jpg";
