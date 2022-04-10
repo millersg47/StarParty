@@ -21,7 +21,7 @@ The main application page displays the user with their search history, current w
 - [Open Weather](https://openweathermap.org/api/one-call-api)
 - [Geocoding API](https://openweathermap.org/api/geocoding-api)
 
-## Colaborators
+## Collaborators
 
 - [Sophie Miller](https://github.com/millersg47)
 - [Nathan Kilcrease](https://github.com/batemanz)
